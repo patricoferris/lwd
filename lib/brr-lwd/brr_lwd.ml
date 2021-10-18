@@ -12,6 +12,10 @@ let onload v =
   in
   ignore (Fut.map onload' Ev.(next load @@ Window.as_target G.window))
 
+let use_state a = 
+  let a = Lwd.var a in
+  a, fun f -> Lwd.set a (f (Lwd.peek a))
+
 module Let_syntax = struct 
   let (let+) a f = Lwd.map ~f a
   let (let*) a f = Lwd.bind ~f a
